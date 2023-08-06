@@ -27,6 +27,37 @@ class MoveButton extends HTMLButtonElement{
     }
 }
 
+// class ClickAndHold{
+//     constructor(target, callback_function){
+//         this.target = target;
+//         this.callback_function = callback_function;
+//         this.isHeld = false;
+//         this.activeHoldTimeoutId = null;
+
+//         ['mousedown', 'touchstart'].forEach(type => {
+//             this.target.addEventListener(type, this._onHoldStart.bind(this));
+//         })
+
+//         ['mouseup','mouseleave','mouseout'].forEach(type => {
+//             this.target.addEventListener(type, this._onHoldEnd.bind(this));
+//         })
+//     }
+//     _onHoldStart(){
+//         console.log('holding')
+//         this.isHeld = true;
+//         this.activeHoldTimeoutId = setTimeout(() => {
+//             if (this.isHeld){
+//                 this.callback_function();
+//             }
+//         }, 1000);
+//     }
+
+//     _onHoldEnd(){
+//         this.isHeld = false;
+//         clearTimeout(this.activeHoldTimeoutId);
+//     }
+// }
+
 // funtion to create the first set of moves from initialization
 function generate_start_button(pressed_button) {
 
@@ -69,9 +100,11 @@ function generate_move_options(pressed_button, move){
         }
     
         let text = document.createTextNode(button.move.name); // make the text of the button the name of the move it represents
+        let view = document.createTextNode('view'); // make the text of the button the name of the move it represents
         
         button.appendChild(text); // appending text to button
         myDiv.appendChild(button); // appending button to div
+        // myDiv.appendChild(view); // appending button to div
 
     }
 
@@ -83,6 +116,7 @@ function generate_move_options(pressed_button, move){
     pressed_button.remove()
 
 }
+
 
 function init_moves(){
 
@@ -111,11 +145,46 @@ function init_moves(){
     // belay.add_children([cats])
     // console.log(start.children)
 }
+
+function press_and_hold() {
+
+    var mouseTimer;
+    function mouseDown() { 
+        mouseUp(); // clear the timout to resart it agaisn so spamming does not trigger
+        mouseTimer = window.setTimeout(execMouseDown,1000); //set timeout to fire in 2 seconds when the user presses mouse button down
+    }
+  
+    function mouseUp() { 
+        if (mouseTimer) window.clearTimeout(mouseTimer);  //cancel timer when mouse button is released
+        div.style.backgroundColor = "#FFFFFF";
+    }
+  
+    function execMouseDown() { 
+        div.style.backgroundColor = "#CFCF00";
+    }
+  
+    var div = document.getElementById("test_stuff");
+    div.addEventListener("mousedown", mouseDown);
+    div.addEventListener('touchstart', mouseDown)
+    document.body.addEventListener("mouseup", mouseUp);  //listen for mouse up event on body, not just the element you originally clicked on
+    document.body.addEventListener("touchend", mouseUp);  //listen for mouse up event on body, not just the element you originally clicked on
+    
+};
+
+// press_and_hold()
+
 init_moves()
+
+
 
 
 customElements.define("silks-move", MoveButton, {extends: "button"});
 
 
+const myButton = document.getElementById('test_stuff')
+
+// new ClickAndHold(myButton, () => {
+//     alert('Click and Hold');
+// })
 
 
