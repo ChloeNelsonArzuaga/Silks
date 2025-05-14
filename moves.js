@@ -41,6 +41,7 @@ var loaded_silks_moves = [["Start",["Loose Silks"]],
             ["Airplane Variation",["Loose Silks"]],
             ["Bullet Drop",["Loose Silks"]],
 
+            //Moves from Hip Hitch
             ["Hip Hitch",["Archer", "Hip Key"]],
             ["Archer",["Hip Hitch"]],
 
