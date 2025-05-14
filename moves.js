@@ -33,7 +33,8 @@ var loaded_silks_moves = [["Start",["Loose Silks"]],
             ["Lady in the Moon",["Hip Key", "Crochet Legs"]],
 
             // Moves from Crochet Legs
-            ["Crochet Legs",["Flip Seat"]],
+            ["Crochet Legs",["Flip Seat", "Tick Toc"]],
+            ["Tick Toc",["Loose Silks"]],
             ["Flip Seat",["Cleopatra", "360", "Airplane Variation", "Bullet Drop"]],
             ["Cleopatra",["360", "Loose Silks"]],
             ["360",["Loose Silks"]],
