@@ -45,6 +45,7 @@ var loaded_silks_moves = [["Start",["Loose Silks"]],
             ["Hip Hitch",["Archer", "Hip Key"]],
             ["Archer",["Hip Hitch"]],
 
+            //Moves from Catchers
             ["Catchers",["Nah who wants to do catchers anyway"]],
             ["Nah who wants to do catchers anyway",["Loose Silks"]],
             
