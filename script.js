@@ -13,7 +13,20 @@ class SilksMove{
         }
     }
     toString(){
-        return this.name
+        if (this.children.length >=1){
+            var childrenNames = this.children[0].name;
+            for (let i = 1; i < this.children.length; i++){
+                childrenNames = childrenNames +","+ this.children[i].name;
+                // console.log(this.children[i].name);
+            }
+            
+            return `Name: ${this.name}, Children: [${childrenNames}]`
+        }
+        else{
+            return `Name: ${this.name}, Children: [None]`
+        }
+
+        
     }
     get_children(){
         return this.children
@@ -63,12 +76,12 @@ function generate_start_button(pressed_button) {
 
     let myDiv = document.getElementById("options"); // options is the name of the div that holds the buttons
 
-    for (i in start.children){
+    for (i in objectMoves[0].children){
 
         let button = document.createElement('button', is = 'silks-move'); // create the new button as a silks move holder
 
         button.className = 'move'
-        button.move = start.children[i] // assign the correct move to the buttom object
+        button.move = objectMoves[0].children[i] // assign the correct move to the buttom object
         button.onclick = function(){
             generate_move_options(button, button.move);
         }
@@ -120,30 +133,62 @@ function generate_move_options(pressed_button, move){
 
 function init_moves(){
 
-    start = new SilksMove("Start")
-    end = new SilksMove("End")
+    objectMoves = [];
 
-    cats = new SilksMove('Catscraddle')
-    belay = new SilksMove("Belay")
-    cats_knee = new SilksMove('Catscraddle kneehook')
-    flamingo = new SilksMove('Flamingo')
-    hangman = new SilksMove('Hangman')
-    basket = new SilksMove('Basket')
-    fs11 = new SilksMove('1 Footlock 1 Silk')
-    loose_silks = new SilksMove('Loose Silk')
+    for (let i = 0; i< loaded_silks_moves.length; i++){
+        var moveName = loaded_silks_moves[i][0];
 
-    start.add_children([fs11])
-    fs11.add_children([belay,basket,end])
-    belay.add_children([end])
-    basket.add_children([cats_knee,flamingo,fs11])
-    cats.add_children([end])
-    cats_knee.add_children([belay,loose_silks])
-    flamingo.add_children([hangman,basket])
-    hangman.add_children([basket, fs11])
+        // console.log(moveName)
 
-    // start.add_children([belay, cats])
-    // belay.add_children([cats])
-    // console.log(start.children)
+        //need to initilize all the moves before initilizing any children since it will throw an error if you try to add a child that does not exist
+        objectMoves.push(new SilksMove(moveName));
+    }
+
+    for (let i = 0; i< loaded_silks_moves.length; i++){
+        var moveName = loaded_silks_moves[i][0];
+        var moveChildren = loaded_silks_moves[i][1]; // Array of strings with the names of the children
+
+        // console.log(moveChildren);
+
+        //initilize the children array
+        children = []
+        // find the children in the moves array
+        for (k in moveChildren){
+            for (let j = 0; j< objectMoves.length; j++){
+                if (objectMoves[j].name == moveChildren[k]){
+                    // append the child to the children array
+                    children.push(objectMoves[j]);
+                }
+            }
+        }
+        console.log(children);
+        // append the children array to the move
+        objectMoves[i].add_children(children);
+    }
+
+    console.log(objectMoves);
+
+    // start = new SilksMove("Start")
+    // end = new SilksMove("End")
+
+    // cats = new SilksMove('Catscraddle')
+    // belay = new SilksMove("Belay")
+    // cats_knee = new SilksMove('Catscraddle kneehook')
+    // flamingo = new SilksMove('Flamingo')
+    // hangman = new SilksMove('Hangman')
+    // basket = new SilksMove('Basket')
+    // fs11 = new SilksMove('1 Footlock 1 Silk')
+    // loose_silks = new SilksMove('Loose Silk')
+
+    // start.add_children([fs11])
+    // fs11.add_children([belay,basket,end])
+    // belay.add_children([end])
+    // basket.add_children([cats_knee,flamingo,fs11])
+    // cats.add_children([end])
+    // cats_knee.add_children([belay,loose_silks])
+    // flamingo.add_children([hangman,basket])
+    // hangman.add_children([basket, fs11])
+
 }
 
 function press_and_hold() {
@@ -174,9 +219,6 @@ function press_and_hold() {
 // press_and_hold()
 
 init_moves()
-
-
-
 
 customElements.define("silks-move", MoveButton, {extends: "button"});
 
