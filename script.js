@@ -78,6 +78,8 @@ function generate_start_button(pressed_button) {
 
     for (i in objectMoves[0].children){
 
+        let listItem = document.createElement('list-item');
+
         let button = document.createElement('button', is = 'silks-move'); // create the new button as a silks move holder
 
         button.className = 'move'
@@ -87,9 +89,37 @@ function generate_start_button(pressed_button) {
         }
     
         let text = document.createTextNode(button.move.name); // make the text of the button the name of the move it represents
-        
         button.appendChild(text); // appending text to button
-        myDiv.appendChild(button); // appending button to div
+
+        let infoIcon = document.createElement('span');
+        infoIcon.className = 'info-icon';
+        infoIcon.textContent = '🔍';
+        // infoIcon.onclick = (event) => {
+        //     event.stopPropagation();
+        //     toggleInfo(infoIcon);
+        // };
+        infoIcon.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleInfo(infoIcon);
+        });
+
+        // button.innerHTML = `
+        //     <span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
+        // `;
+        button.appendChild(infoIcon);
+
+        // listItem.innerHTML = `
+        //     <div class="info-dialog">${"This is where the info goes"}</div>
+        // `;
+
+        let infoDialog = document.createElement('div');
+        infoDialog.className = 'info-dialog';
+        infoDialog.textContent = "infoText";
+
+        // button.appendChild(text); // appending text to button
+        listItem.appendChild(button);
+        listItem.appendChild(infoDialog);
+        myDiv.appendChild(listItem); // appending button to div
     }
 
     pressed_button.remove()
@@ -224,6 +254,37 @@ customElements.define("silks-move", MoveButton, {extends: "button"});
 
 
 const myButton = document.getElementById('test_stuff')
+
+// code to handle the checkboxs that control easy medium and hard
+
+const buttons = document.querySelectorAll('.toggle-button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('checked');
+    });
+});
+
+// code to handle the moves buttons and when they are opened and closed to reveal the extra info
+function handleMainClick(option) {
+    alert('Main button clicked: ' + option);
+}
+
+function toggleInfo(iconElement) {
+    const listItem = iconElement.closest('.list-item');
+    const dialog = listItem.querySelector('.info-dialog');
+    const button = listItem.querySelector('.move');
+
+    const isActive = dialog.classList.contains('active');
+
+    document.querySelectorAll('.info-dialog').forEach(d => d.classList.remove('active'));
+    document.querySelectorAll('.move').forEach(b => b.classList.remove('open'));
+
+    if (!isActive) {
+        dialog.classList.add('active');
+        button.classList.add('open');
+    }
+}
 
 // new ClickAndHold(myButton, () => {
 //     alert('Click and Hold');

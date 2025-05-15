@@ -46,27 +46,27 @@
   
 /* Column container */
 .move_options {
-    display: grid;
+    /* display: grid;
     gap: 5px;
     
-    grid-template-columns: repeat(4,150px);
+    grid-template-columns: repeat(4,150px); */
     /* flex-wrap: wrap; */
+
+    /* updated format instead of columsn */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    max-width: 300px;
+    margin: auto;
+
 }
   
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 
 
-.move {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    height: 150px;
-    width: 150px;
-    position: relative;
-}
+
 
 .center_text{
     position: absolute;
@@ -75,16 +75,167 @@
     transform: translate(-50%, -50%);
 }
 
-img {
-    width:150px;
+.info-dialog img{
+    /* width:150px;
     height:150px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
+ul{
+  list-style-type: none;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
 
+li {
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* CSS for the Beginer, intermediate, advanced bar */
+
+.level-bar {
+    display: flex;
+    /* background: #f0f0f0; */
+    padding: 10px;
+    /* border-radius: 999px; */
+    justify-content: center;
+}
+
+.toggle-button {
+    flex: 1;
+    padding: 10px 20px;
+    border: 2px solid #404040;
+    border-right: none;
+    /* background-color: white; */
+    color: #404040;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    border-radius: 0;
+}
+
+.toggle-button:first-child {
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+}
+
+.toggle-button:last-child {
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    border-right: 2px solid #404040;
+}
+
+.toggle-button.checked {
+    background-color: #124172;
+    color: white;
+}
+
+/* Syle for the actual moves that are generated */
+
+/* .selection-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    max-width: 300px;
+    margin: auto;
+} */
+
+.move {
+    /* background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    height: 150px;
+    width: 150px;
+    position: relative; */
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 1rem;
+    /* transition: all 0.2s ease; */
+}
+
+.move.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.move:hover {
+    background-color: #e6f0ff;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .list-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.list-button.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.list-button:hover {
+    background-color: #e6f0ff;
+} */
+
+.info-icon {
+    margin-left: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.info-dialog {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.info-dialog.active {
+    display: block;
+}
 
 
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */

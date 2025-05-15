@@ -12,17 +12,20 @@
     <div class="header">
         <h1>Silks Routine Builder</h1>
         <!-- <p>A website created by me.</p> -->
-        <div class="navbar">
+        <!-- <div class="navbar">
             <a href="#">Link</a>
             <a href="#">Link</a>
             <a href="#">Link</a>
             <a href="#" class="right">Link</a>
+        </div> -->
+        <div class="level-bar">
+            <button class="toggle-button" data-id="1">Beginner</button>
+            <button class="toggle-button" data-id="2">Intermediate</button>
+            <button class="toggle-button" data-id="3">Advanced</button>
         </div>
     </div>
     <div class="builder">
-        <div class="move_list" id = 'routine'>
-            <p>This the the current routine</p>
-        </div>
+<!-- 
         <div class="move_options" id = 'options'>
             <button onclick= "generate_start_button(this)" class = 'move' name = 'start' id = 'test_stuff'>
                 
@@ -30,15 +33,87 @@
                 <div class = 'center_text' >Start</div>
                 
             </button>
+        </div> -->
 
-            <!-- <div class="move" >This is a move</div> -->
+        <div class="move_options" id = 'options'>
+            <div class="list-item">
+                <div class="move" onclick="generate_start_button(this)" name = "start" id = 'test_stuff'>
+                    Start<span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
+                </div>
+                <div class="info-dialog">
+                    More info about image 1
+                    <img src="Lsplit.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p>This the the current routine</p>
+            <ul class="move_list" id = 'routine'></ul>
         </div>
 
     </div>
 
+    <!-- <div class = "testing">
+
+        <div class="move_options" id = 'options'>
+            <div class="list-item">
+                <div class="move" onclick="generate_start_button(this)" name = "start" id = 'test_stuff'>
+                    Start<span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
+                </div>
+                <div class="info-dialog">More info about Option 1.</div>
+            </div> -->
+            <!-- <div class="list-item">
+                <div class="list-button" onclick="handleMainClick('Option 2')">
+                    Option 2 <span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
+                </div>
+                <div class="info-dialog">More info about Option 2.</div>
+            </div>
+            <div class="list-item">
+                <div class="list-button" onclick="handleMainClick('Option 3')">
+                    Option 3 <span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
+                </div>
+                <div class="info-dialog">More info about Option 3.</div>
+            </div>
+        </div>
+
+        <sl-menu style="max-width: 200px;">
+        <sl-menu-item value="undo">Undo</sl-menu-item>
+        <sl-menu-item value="redo">Redo</sl-menu-item>
+        <sl-divider></sl-divider>
+        <sl-menu-item value="cut">Cut</sl-menu-item>
+        <sl-menu-item value="copy">Copy</sl-menu-item>
+        <sl-menu-item value="paste">Paste</sl-menu-item>
+        <sl-menu-item value="delete">Delete</sl-menu-item>
+        </sl-menu>
+        <sl-tag variant="primary">Primary</sl-tag>
+        <sl-tag variant="success">Success</sl-tag>
+        <sl-tag variant="neutral">Neutral</sl-tag>
+        <sl-tag variant="warning">Warning</sl-tag>
+        <sl-tag variant="danger">Danger</sl-tag>
+
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
+        </div>
+
+
+
+    </div>-->
+
 
     <h1>Hello World</h1>
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus error similique veritatis vero provident consequuntur sint expedita deserunt odio nihil, autem sunt quaerat omnis praesentium nulla aut molestiae, labore veniam?</p>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+    
     <script src="moves.js"></script>
     <script src="script.js"></script>
     
