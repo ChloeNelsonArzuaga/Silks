@@ -40,37 +40,6 @@ class MoveButton extends HTMLButtonElement{
     }
 }
 
-// class ClickAndHold{
-//     constructor(target, callback_function){
-//         this.target = target;
-//         this.callback_function = callback_function;
-//         this.isHeld = false;
-//         this.activeHoldTimeoutId = null;
-
-//         ['mousedown', 'touchstart'].forEach(type => {
-//             this.target.addEventListener(type, this._onHoldStart.bind(this));
-//         })
-
-//         ['mouseup','mouseleave','mouseout'].forEach(type => {
-//             this.target.addEventListener(type, this._onHoldEnd.bind(this));
-//         })
-//     }
-//     _onHoldStart(){
-//         console.log('holding')
-//         this.isHeld = true;
-//         this.activeHoldTimeoutId = setTimeout(() => {
-//             if (this.isHeld){
-//                 this.callback_function();
-//             }
-//         }, 1000);
-//     }
-
-//     _onHoldEnd(){
-//         this.isHeld = false;
-//         clearTimeout(this.activeHoldTimeoutId);
-//     }
-// }
-
 // funtion to create the first set of moves from initialization
 function generate_start_button(pressed_button) {
 
@@ -78,88 +47,90 @@ function generate_start_button(pressed_button) {
 
     for (i in objectMoves[0].children){
 
-        let listItem = document.createElement('list-item');
-
-        let button = document.createElement('button', is = 'silks-move'); // create the new button as a silks move holder
-
-        button.className = 'move'
-        button.move = objectMoves[0].children[i] // assign the correct move to the buttom object
-        button.onclick = function(){
-            generate_move_options(button, button.move);
-        }
-    
-        let text = document.createTextNode(button.move.name); // make the text of the button the name of the move it represents
-        button.appendChild(text); // appending text to button
-
-        let infoIcon = document.createElement('span');
-        infoIcon.className = 'info-icon';
-        infoIcon.textContent = '🔍';
-        // infoIcon.onclick = (event) => {
-        //     event.stopPropagation();
-        //     toggleInfo(infoIcon);
-        // };
-        infoIcon.addEventListener('click', (event) => {
-            event.stopPropagation();
-            toggleInfo(infoIcon);
-        });
-
-        // button.innerHTML = `
-        //     <span class="info-icon" onclick="event.stopPropagation(); toggleInfo(this)">🔍</span>
-        // `;
-        button.appendChild(infoIcon);
-
-        // listItem.innerHTML = `
-        //     <div class="info-dialog">${"This is where the info goes"}</div>
-        // `;
-
-        let infoDialog = document.createElement('div');
-        infoDialog.className = 'info-dialog';
-        infoDialog.textContent = "infoText";
-
-        // button.appendChild(text); // appending text to button
-        listItem.appendChild(button);
-        listItem.appendChild(infoDialog);
-        myDiv.appendChild(listItem); // appending button to div
+        create_move_blocks(myDiv, objectMoves[0].children[i]);
     }
 
-    pressed_button.remove()
+    pressed_button.closest('.list-item').remove();
 }
 
 function generate_move_options(pressed_button, move){
 
     let myDiv = document.getElementById("options"); // options is the name of the div that holds the buttons
     myDiv.replaceChildren(); // remove any buttons that exist in this div (these are the buttons that were not chosen)
-    let routineDiv = document.getElementById("routine"); // the dive that holds the current routine as text
+    let routineDiv = document.getElementById("routine"); // the div that holds the current routine as text
 
     // iterate over the children of the move
     for (i in move.children){
 
-        let button = document.createElement('button', is = 'silks-move'); // create the new button as a silks move holder
-
-        button.className = 'move'
-        button.move = move.children[i] // assign the correct move to the buttom object
-        button.onclick = function(){
-            generate_move_options(button, button.move);
-        }
-    
-        let text = document.createTextNode(button.move.name); // make the text of the button the name of the move it represents
-        let view = document.createTextNode('view'); // make the text of the button the name of the move it represents
-        
-        button.appendChild(text); // appending text to button
-        myDiv.appendChild(button); // appending button to div
-        // myDiv.appendChild(view); // appending button to div
+        create_move_blocks(myDiv, move.children[i]);
 
     }
 
+    // Add the seelcted move to the active routine
     let list_item = document.createElement('li')
     let text = document.createTextNode(move.name);
     list_item.appendChild(text)
     routineDiv.appendChild(list_item)
 
-    pressed_button.remove()
+    pressed_button.closest('.list-item').remove();
 
 }
 
+function create_move_blocks(div_to_append_to, child){
+
+    // Create the continer for the button and info
+    let listItem = document.createElement('div'); // grab the div that holds all the moves and their details
+    listItem.className = "list-item";
+
+    // Create the button with the correct move name
+    let button = document.createElement('button', is = 'silks-move'); // create the new button as a silks move holder
+    button.className = 'move'
+    button.move = child // assign the correct move to the buttom object
+    button.onclick = function(){
+        generate_move_options(button, button.move);
+    }
+    let text = document.createTextNode(button.move.name); // make the text of the button the name of the move it represents
+    button.appendChild(text); // appending text to button
+
+    // Create the info icon
+    let infoIcon = document.createElement('span');
+    infoIcon.className = 'info-icon';
+    infoIcon.textContent = '🔍';
+    infoIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleInfo(infoIcon);
+    });
+
+    // Create the info dialauge
+    let infoDialog = document.createElement('div');
+    infoDialog.className = 'info-dialog';
+    infoDialog.textContent = "infoText";
+
+    button.appendChild(infoIcon);
+    listItem.appendChild(button);
+    listItem.appendChild(infoDialog);
+    div_to_append_to.appendChild(listItem); // appending button to div
+
+}
+
+function toggleInfo(iconElement) {
+    let listItem = iconElement.closest('.list-item');
+    // if (!listItem) return;
+    console.log(listItem);
+    let dialog = listItem.querySelector('.info-dialog');
+    let button = listItem.querySelector('.move');
+    // if (!dialog || !button) return;
+
+    let isActive = dialog.classList.contains('active');
+
+    document.querySelectorAll('.info-dialog').forEach(d => d.classList.remove('active'));
+    document.querySelectorAll('.move').forEach(b => b.classList.remove('open'));
+
+    if (!isActive) {
+        dialog.classList.add('active');
+        button.classList.add('open');
+    }
+}
 
 function init_moves(){
 
@@ -198,65 +169,15 @@ function init_moves(){
 
     console.log(objectMoves);
 
-    // start = new SilksMove("Start")
-    // end = new SilksMove("End")
-
-    // cats = new SilksMove('Catscraddle')
-    // belay = new SilksMove("Belay")
-    // cats_knee = new SilksMove('Catscraddle kneehook')
-    // flamingo = new SilksMove('Flamingo')
-    // hangman = new SilksMove('Hangman')
-    // basket = new SilksMove('Basket')
-    // fs11 = new SilksMove('1 Footlock 1 Silk')
-    // loose_silks = new SilksMove('Loose Silk')
-
-    // start.add_children([fs11])
-    // fs11.add_children([belay,basket,end])
-    // belay.add_children([end])
-    // basket.add_children([cats_knee,flamingo,fs11])
-    // cats.add_children([end])
-    // cats_knee.add_children([belay,loose_silks])
-    // flamingo.add_children([hangman,basket])
-    // hangman.add_children([basket, fs11])
-
 }
-
-function press_and_hold() {
-
-    var mouseTimer;
-    function mouseDown() { 
-        mouseUp(); // clear the timout to resart it agaisn so spamming does not trigger
-        mouseTimer = window.setTimeout(execMouseDown,1000); //set timeout to fire in 2 seconds when the user presses mouse button down
-    }
-  
-    function mouseUp() { 
-        if (mouseTimer) window.clearTimeout(mouseTimer);  //cancel timer when mouse button is released
-        div.style.backgroundColor = "#FFFFFF";
-    }
-  
-    function execMouseDown() { 
-        div.style.backgroundColor = "#CFCF00";
-    }
-  
-    var div = document.getElementById("test_stuff");
-    div.addEventListener("mousedown", mouseDown);
-    div.addEventListener('touchstart', mouseDown)
-    document.body.addEventListener("mouseup", mouseUp);  //listen for mouse up event on body, not just the element you originally clicked on
-    document.body.addEventListener("touchend", mouseUp);  //listen for mouse up event on body, not just the element you originally clicked on
-    
-};
-
-// press_and_hold()
 
 init_moves()
 
 customElements.define("silks-move", MoveButton, {extends: "button"});
 
-
-const myButton = document.getElementById('test_stuff')
+const myButton = document.getElementById('test_stuff'); // not sure we actually need this anymore
 
 // code to handle the checkboxs that control easy medium and hard
-
 const buttons = document.querySelectorAll('.toggle-button');
 
 buttons.forEach(button => {
@@ -266,28 +187,9 @@ buttons.forEach(button => {
 });
 
 // code to handle the moves buttons and when they are opened and closed to reveal the extra info
-function handleMainClick(option) {
-    alert('Main button clicked: ' + option);
-}
+// function handleMainClick(option) {
+//     alert('Main button clicked: ' + option);
+// }
 
-function toggleInfo(iconElement) {
-    const listItem = iconElement.closest('.list-item');
-    const dialog = listItem.querySelector('.info-dialog');
-    const button = listItem.querySelector('.move');
-
-    const isActive = dialog.classList.contains('active');
-
-    document.querySelectorAll('.info-dialog').forEach(d => d.classList.remove('active'));
-    document.querySelectorAll('.move').forEach(b => b.classList.remove('open'));
-
-    if (!isActive) {
-        dialog.classList.add('active');
-        button.classList.add('open');
-    }
-}
-
-// new ClickAndHold(myButton, () => {
-//     alert('Click and Hold');
-// })
 
 

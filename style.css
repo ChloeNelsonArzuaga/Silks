@@ -6,89 +6,20 @@
     background: #1abc9c; /* green background */
     color: white; /* white text color */
 }
-  
-  /* Increase the font size of the <h1> element */
+
+/* Increase the font size of the <h1> element */
 .header h1 {
     font-size: 40px;
-}
-
-/* Style the top navigation bar */
-.navbar {
-    overflow: hidden; /* Hide overflow */
-    background-color: #333; /* Dark background color */
-}
-  
-  /* Style the navigation bar links */
-.navbar a {
-    float: left; /* Make sure that the links stay side-by-side */
-    display: block; /* Change the display to block, for responsive reasons (see below) */
-    color: white; /* White text color */
-    text-align: center; /* Center the text */
-    padding: 14px 20px; /* Add some padding */
-    text-decoration: none; /* Remove underline */
-}
-  
-/* Right-aligned link */
-.navbar a.right {
-    float: right; /* Float a link to the right */
-}
-  
-/* Change color on hover/mouse-over */
-.navbar a:hover {
-    background-color: #ddd; /* Grey background color */
-    color: black; /* Black text color */
 }
 
 /* Ensure proper sizing */
 * {
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif
   }
   
-/* Column container */
-.move_options {
-    /* display: grid;
-    gap: 5px;
-    
-    grid-template-columns: repeat(4,150px); */
-    /* flex-wrap: wrap; */
 
-    /* updated format instead of columsn */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    max-width: 300px;
-    margin: auto;
-
-}
-  
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-
-
-
-
-.center_text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.info-dialog img{
-    /* width:150px;
-    height:150px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
+/* Container for all the list elements that create the current routine */
 ul{
   list-style-type: none;
   padding: 0;
@@ -102,7 +33,6 @@ li {
 }
 
 /* CSS for the Beginer, intermediate, advanced bar */
-
 .level-bar {
     display: flex;
     /* background: #f0f0f0; */
@@ -140,36 +70,29 @@ li {
     color: white;
 }
 
-/* Syle for the actual moves that are generated */
+/* Container for all the moves and their infomration */
+.move_options {
 
-/* .selection-bar {
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 20px;
     max-width: 300px;
     margin: auto;
-} */
+}
 
+/* Syle for the actual moves that are generated */
 .move {
-    /* background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    height: 150px;
-    width: 150px;
-    position: relative; */
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     padding: 10px 15px;
-    border: 2px solid #007bff;
+    border: 2px solid #404040;
     border-radius: 8px;
     background-color: white;
-    color: #007bff;
+    color: #404040;
     cursor: pointer;
     font-size: 1rem;
     /* transition: all 0.2s ease; */
@@ -189,30 +112,7 @@ li {
     flex-direction: column;
 }
 
-/* .list-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    background-color: white;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-}
-
-.list-button.open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.list-button:hover {
-    background-color: #e6f0ff;
-} */
-
+/* Formatting for the info dialouges */
 .info-icon {
     margin-left: 10px;
     font-size: 1rem;
@@ -231,6 +131,15 @@ li {
     border-radius: 0 0 8px 8px;
     font-size: 0.9rem;
     color: #333;
+}
+
+/* formatting of the images inside of the info dialouges */
+.info-dialog img{
+
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .info-dialog.active {
